@@ -1,0 +1,12 @@
+[Defines]
+    DEC_SPECIFICATION               = 0x00010005
+    PACKAGE_NAME                    = ShmurkioPkg
+    PACKAGE_GUID                    = 7BE030F6-C84B-4773-89F1-1A6F17BB4A59
+    PACKAGE_VERSION                 = 1.0
+
+[Includes]
+    Include
+
+[LibraryClasses]
+    SerialLib|Include/Library/SerialLib.hpp
+    EntryLib|Include/Library/EntryLib.hpp

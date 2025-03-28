@@ -1,0 +1,26 @@
+[Defines]
+    INF_VERSION = 0x00010005
+    BASE_NAME = SerialLib
+    FILE_GUID = AD4AF658-C462-4404-8075-F11524FFDA8F
+    MODULE_TYPE = BASE
+    VERSION_STRING = 1.0
+    LIBRARY_CLASS = SerialLib
+
+[Sources]
+    SerialLib.cpp
+
+[Packages]
+    MdePkg/MdePkg.dec
+    ShmurkioPkg/ShmurkioPkg.dec
+
+[LibraryClasses]
+    UefiLib
+    SerialPortLib
+    PrintLib
+    UefiBootServicesTableLib
+
+[Protocols]
+    gEfiSerialIoProtocolGuid
+
+[BuildOptions]
+    MSFT:*_*_X64_CC_FLAGS = /std:c++latest
