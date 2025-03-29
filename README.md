@@ -34,6 +34,14 @@ for (int i = 0; i < ArgC; i++)
 
 ![SerialLib](https://i.imgur.com/T1ckGF2.png)
 
+### **3. UtilLib**
+
+A collection of useful functions.
+
+### **4. UtilLib**
+
+Functions for hooking.
+
 ## **Example Usage**  
 
 For a practical example of how to use ShmurkioPkg, check out the HelloWorldPkg.
