@@ -11,3 +11,5 @@
 [LibraryClasses]
     SerialLib|ShmurkioPkg/Library/SerialLib/SerialLib.inf
     EntryLib|ShmurkioPkg/Library/EntryLib/EntryLib.inf
+    UtilLib|ShmurkioPkg/Library/UtilLib/UtilLib.inf
+    HookLib|ShmurkioPkg/Library/HookLib/HookLib.inf

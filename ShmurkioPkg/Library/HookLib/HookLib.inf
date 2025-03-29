@@ -1,0 +1,22 @@
+[Defines]
+    INF_VERSION                     = 0x00010005
+    BASE_NAME                       = HookLib
+    FILE_GUID                       = 33D7AFD9-C6C2-4802-87C4-62B7899093A9
+    MODULE_TYPE                     = BASE
+    VERSION_STRING                  = 1.0
+    LIBRARY_CLASS                   = HookLib
+
+[Sources]
+    HookLib.cpp
+
+[Packages]
+    MdePkg/MdePkg.dec
+    ShmurkioPkg/ShmurkioPkg.dec
+
+[LibraryClasses]
+    UefiLib
+    UefiBootServicesTableLib
+    BaseMemoryLib
+
+[BuildOptions]
+    MSFT:*_*_X64_CC_FLAGS = /std:c++latest

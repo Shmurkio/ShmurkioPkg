@@ -10,3 +10,5 @@
 [LibraryClasses]
     SerialLib|Include/Library/SerialLib.hpp
     EntryLib|Include/Library/EntryLib.hpp
+    UtilLib|Include/Library/UtilLib.hpp
+    HookLib|Include/Library/HookLib.hpp
