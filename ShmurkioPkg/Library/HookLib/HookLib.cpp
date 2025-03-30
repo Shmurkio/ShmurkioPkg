@@ -48,6 +48,58 @@ Hook::HookJump(
 
 EFI_STATUS
 EFIAPI
+Hook::HookJumpBackup(
+    _In_ void* Address,
+    _In_ uint8_t (&Backup)[12]
+)
+{
+    if (!Address || !Backup)
+    {
+        return EFI_INVALID_PARAMETER;
+    }
+
+    CopyMem(Backup, Address, sizeof(Backup));
+
+    if (CompareMem(Address, Backup, sizeof(Backup)) != 0)
+    {
+        return EFI_WRITE_PROTECTED;
+    }
+
+    return EFI_SUCCESS;
+}
+
+EFI_STATUS
+EFIAPI
+Hook::UnhookJump(
+    _In_ void* Address,
+    _In_ uint8_t* Backup,
+    _In_ bool IsReadOnly
+)
+{
+    if (!Address || !Backup)
+    {
+        return EFI_INVALID_PARAMETER;
+    }
+
+    if (IsReadOnly)
+    {
+        Util::CopyToReadOnly(Address, Backup, 12);
+    }
+    else
+    {
+        CopyMem(Address, Backup, 12);
+    }
+
+    if (CompareMem(Address, Backup, 12) != 0)
+    {
+        return EFI_WRITE_PROTECTED;
+    }
+
+    return EFI_SUCCESS;
+}
+
+EFI_STATUS
+EFIAPI
 Hook::HookCall(
     _In_ void* Address,
     _In_ void* CallAddress,

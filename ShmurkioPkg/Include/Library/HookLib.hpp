@@ -15,6 +15,9 @@ extern "C"
 
 #include <cstdint>
 
+#define HOOK_JUMP_BACKUP(BackupName) \
+    uint8_t gOrig##BackupName[12]
+
 namespace Hook
 {
     EFI_STATUS
@@ -22,6 +25,21 @@ namespace Hook
     HookJump(
         _In_ void* Address,
         _In_ void* JumpTo,
+        _In_ bool IsReadOnly
+    );
+
+    EFI_STATUS
+    EFIAPI
+    HookJumpBackup(
+        _In_ void* Address,
+        _In_ uint8_t (&Backup)[12]
+    );
+
+    EFI_STATUS
+    EFIAPI
+    UnhookJump(
+        _In_ void* Address,
+        _In_ uint8_t* Backup,
         _In_ bool IsReadOnly
     );
 
