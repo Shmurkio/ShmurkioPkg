@@ -38,7 +38,7 @@ for (int i = 0; i < ArgC; i++)
 
 A collection of useful functions.
 
-### **4. UtilLib**
+### **4. HookLib**
 
 Functions for hooking.
 
