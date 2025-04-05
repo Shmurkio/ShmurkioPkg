@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(default: 4100)
 
 extern "C"
 {

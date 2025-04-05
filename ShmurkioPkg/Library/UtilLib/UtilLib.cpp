@@ -153,3 +153,70 @@ Util::CopyToReadOnly(
     __writecr0(OrigCr0);
     return Return;
 }
+
+uint64_t 
+__cdecl
+Util::GetExport(
+    _In_ void* Base,
+    _In_ const char* ExportName
+)
+{
+    EFI_IMAGE_DOS_HEADER* DosHeader = static_cast<EFI_IMAGE_DOS_HEADER*>(Base);
+
+    if (DosHeader->e_magic != EFI_IMAGE_DOS_SIGNATURE)
+    {
+        return 0;
+    }
+
+    EFI_IMAGE_NT_HEADERS64* NtHeaders = reinterpret_cast<EFI_IMAGE_NT_HEADERS64*>(reinterpret_cast<uint64_t>(Base) + DosHeader->e_lfanew);
+    uint32_t ExportsRva = NtHeaders->OptionalHeader.DataDirectory[EFI_IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress;
+
+    if (!ExportsRva)
+    {
+        return 0;
+    }
+
+    EFI_IMAGE_EXPORT_DIRECTORY* Exports = reinterpret_cast<EFI_IMAGE_EXPORT_DIRECTORY*>(reinterpret_cast<uint64_t>(Base) + ExportsRva);
+    uint32_t* NameRva = reinterpret_cast<uint32_t*>(reinterpret_cast<uint64_t>(Base) + Exports->AddressOfNames);
+
+    for (uint32_t i = 0; i < Exports->NumberOfNames; ++i)
+    {
+        char* Func = reinterpret_cast<char*>(reinterpret_cast<uint64_t>(Base) + NameRva[i]);
+
+        if (AsciiStrCmp(Func, ExportName) == 0)
+        {
+            uint32_t* FuncRva = (uint32_t*)(reinterpret_cast<uint64_t>(Base) + Exports->AddressOfFunctions);
+            uint16_t* OrdinalRva = (uint16_t*)(reinterpret_cast<uint64_t>(Base) + Exports->AddressOfNameOrdinals);
+
+            return reinterpret_cast<uint64_t>(Base) + FuncRva[OrdinalRva[i]];
+        }
+    }
+
+    return 0;
+}
+
+bool
+EFIAPI
+Util::StrCmpW(
+    _In_ const wchar_t* Str1,
+    _In_ const wchar_t* Str2
+)
+{
+    if (!Str1 || !Str2)
+    {
+        return false;
+    }
+
+    if (Str1 == Str2)
+    {
+        return true;
+    }
+
+    while (*Str1 && (*Str1 == *Str2)) 
+    {
+        Str1++;
+        Str2++;
+    }
+
+    return (*Str1 == *Str2);
+}

@@ -44,4 +44,18 @@ namespace Util
         _In_ const void* Source,
         _In_ const uint64_t Size
     );
+
+    uint64_t
+    EFIAPI
+    GetExport(
+        _In_ void* Base,
+        _In_ const char* ExportName
+    );
+
+    bool
+    EFIAPI
+    StrCmpW(
+        _In_ const wchar_t* Str1,
+        _In_ const wchar_t* Str2
+    );
 }
